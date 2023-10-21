@@ -15,6 +15,14 @@ class CalendarState extends State<Calendar> {
   final CalendarEventsController<Event> eventController =
       CalendarEventsController<Event>();
 
+  late ViewConfiguration currentConfiguration = viewConfigurations[0];
+  List<ViewConfiguration> viewConfigurations = [
+    const ScheduleConfiguration(),
+    const WeekConfiguration(),
+    const WorkWeekConfiguration(),
+    const MonthConfiguration(),
+  ];
+
   @override
   void initState() {
     super.initState();
@@ -41,13 +49,15 @@ class CalendarState extends State<Calendar> {
   Widget build(BuildContext context) {
     return Menu(
       child: CalendarView<Event>(
-        controller: controller,
-        eventsController: eventController,
-        viewConfiguration: const ScheduleConfiguration(),
-        tileBuilder: _tileBuilder,
-        multiDayTileBuilder: _multiDayTileBuilder,
-        scheduleTileBuilder: _scheduleTileBuilder,
-      ),
+          controller: controller,
+          eventsController: eventController,
+          viewConfiguration: currentConfiguration,
+          tileBuilder: _tileBuilder,
+          multiDayTileBuilder: _multiDayTileBuilder,
+          scheduleTileBuilder: _scheduleTileBuilder,
+          components: CalendarComponents(
+            calendarHeaderBuilder: _calendarHeader,
+          )),
     );
   }
 
@@ -106,6 +116,33 @@ class CalendarState extends State<Calendar> {
           child: Text(event.eventData?.title ?? 'Nieuw Event'),
         ),
       ),
+    );
+  }
+
+  Widget _calendarHeader(DateTimeRange dateTimeRange) {
+    return Row(
+      children: [
+        DropdownMenu(
+          onSelected: (value) {
+            if (value == null) return;
+            setState(() {
+              currentConfiguration = value;
+            });
+          },
+          initialSelection: currentConfiguration,
+          dropdownMenuEntries: viewConfigurations
+              .map((e) => DropdownMenuEntry(value: e, label: e.name))
+              .toList(),
+        ),
+        IconButton.filledTonal(
+          onPressed: controller.animateToPreviousPage,
+          icon: const Icon(Icons.navigate_before_rounded),
+        ),
+        IconButton.filledTonal(
+          onPressed: controller.animateToNextPage,
+          icon: const Icon(Icons.navigate_next_rounded),
+        ),
+      ],
     );
   }
 }

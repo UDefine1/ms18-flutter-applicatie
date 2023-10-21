@@ -25,7 +25,7 @@ class CalendarState extends State<Calendar> {
           start: now,
           end: now.add(const Duration(hours: 1)),
         ),
-        eventData: Event(title: 'Voorbeeld 1'),
+        eventData: Event(title: 'World Scout Jamboree'),
       ),
       CalendarEvent(
         dateTimeRange: DateTimeRange(
@@ -43,7 +43,7 @@ class CalendarState extends State<Calendar> {
       child: CalendarView<Event>(
         controller: controller,
         eventsController: eventController,
-        viewConfiguration: const DayConfiguration(),
+        viewConfiguration: const ScheduleConfiguration(),
         tileBuilder: _tileBuilder,
         multiDayTileBuilder: _multiDayTileBuilder,
         scheduleTileBuilder: _scheduleTileBuilder,
@@ -51,7 +51,8 @@ class CalendarState extends State<Calendar> {
     );
   }
 
-  Widget _tileBuilder(CalendarEvent<Event> event, TileConfiguration configuration) {
+  Widget _tileBuilder(
+      CalendarEvent<Event> event, TileConfiguration configuration) {
     final color = event.eventData?.color ?? Colors.blue;
     return Card(
       shape: RoundedRectangleBorder(
@@ -59,7 +60,9 @@ class CalendarState extends State<Calendar> {
       ),
       margin: EdgeInsets.zero,
       elevation: configuration.tileType == TileType.ghost ? 0 : 8,
-      color: configuration.tileType != TileType.ghost ? color : color.withAlpha(100),
+      color: configuration.tileType != TileType.ghost
+          ? color
+          : color.withAlpha(100),
       child: Center(
         child: configuration.tileType != TileType.ghost
             ? Text(event.eventData?.title ?? 'Nieuw event')
@@ -91,16 +94,21 @@ class CalendarState extends State<Calendar> {
     CalendarEvent<Event> event,
     DateTime date,
   ) {
-    return DecoratedBox(
-      decoration: BoxDecoration(
-        color: event.eventData?.color ?? Colors.yellow,
-        borderRadius: BorderRadius.circular(8),
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 4.0),
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          color: event.eventData?.color ?? Colors.blue,
+          borderRadius: BorderRadius.circular(8),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(6.0), // Adjust the padding as needed
+          child: Text(event.eventData?.title ?? 'Nieuw Event'),
+        ),
       ),
-      child: Text(event.eventData?.title ?? 'Nieuw Event'),
     );
   }
 }
-
 
 class Event {
   Event({

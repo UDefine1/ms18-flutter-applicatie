@@ -25,21 +25,14 @@ class CalendarState extends State<Calendar> {
           start: now,
           end: now.add(const Duration(hours: 1)),
         ),
-        eventData: Event(title: 'Event 1'),
+        eventData: Event(title: 'Voorbeeld 1'),
       ),
       CalendarEvent(
         dateTimeRange: DateTimeRange(
           start: now.add(const Duration(hours: 2)),
           end: now.add(const Duration(hours: 5)),
         ),
-        eventData: Event(title: 'Event 2'),
-      ),
-      CalendarEvent(
-        dateTimeRange: DateTimeRange(
-          start: DateTime(now.year, now.month, now.day),
-          end: DateTime(now.year, now.month, now.day).add(const Duration(days: 2)),
-        ),
-        eventData: Event(title: 'Event 3'),
+        eventData: Event(title: 'Voorbeeld 2'),
       ),
     ]);
   }
@@ -50,7 +43,7 @@ class CalendarState extends State<Calendar> {
       child: CalendarView<Event>(
         controller: controller,
         eventsController: eventController,
-        viewConfiguration: const MonthConfiguration(),
+        viewConfiguration: const DayConfiguration(),
         tileBuilder: _tileBuilder,
         multiDayTileBuilder: _multiDayTileBuilder,
         scheduleTileBuilder: _scheduleTileBuilder,
@@ -69,7 +62,7 @@ class CalendarState extends State<Calendar> {
       color: configuration.tileType != TileType.ghost ? color : color.withAlpha(100),
       child: Center(
         child: configuration.tileType != TileType.ghost
-            ? Text(event.eventData?.title ?? 'New Event')
+            ? Text(event.eventData?.title ?? 'Nieuw event')
             : null,
       ),
     );
@@ -88,7 +81,7 @@ class CalendarState extends State<Calendar> {
           : color,
       child: Center(
         child: configuration.tileType != TileType.ghost
-            ? Text(event.eventData?.title ?? 'New Event')
+            ? Text(event.eventData?.title ?? 'Nieuw event')
             : null,
       ),
     );
@@ -100,10 +93,10 @@ class CalendarState extends State<Calendar> {
   ) {
     return DecoratedBox(
       decoration: BoxDecoration(
-        color: event.eventData?.color ?? Colors.blue,
+        color: event.eventData?.color ?? Colors.yellow,
         borderRadius: BorderRadius.circular(8),
       ),
-      child: Text(event.eventData?.title ?? 'New Event'),
+      child: Text(event.eventData?.title ?? 'Nieuw Event'),
     );
   }
 }

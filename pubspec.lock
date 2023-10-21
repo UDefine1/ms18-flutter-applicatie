@@ -75,6 +75,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  kalender:
+    dependency: "direct main"
+    description:
+      name: kalender
+      sha256: "64cd4b02579fb457ab68a454228b7e2aafcedd3ffd9ef19d88eeb4d97b2879c6"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.1.6"
   lints:
     dependency: transitive
     description:
@@ -115,6 +123,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.8.3"
+  scrollable_positioned_list:
+    dependency: transitive
+    description:
+      name: scrollable_positioned_list
+      sha256: "1b54d5f1329a1e263269abc9e2543d90806131aa14fe7c6062a8054d57249287"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.3.8"
   sky_engine:
     dependency: transitive
     description: flutter
@@ -186,3 +202,4 @@ packages:
     version: "0.1.4-beta"
 sdks:
   dart: ">=3.1.2 <4.0.0"
+  flutter: ">=2.12.0"

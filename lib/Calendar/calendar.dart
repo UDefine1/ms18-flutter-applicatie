@@ -19,7 +19,6 @@ class CalendarState extends State<Calendar> {
   List<ViewConfiguration> viewConfigurations = [
     const ScheduleConfiguration(),
     const WeekConfiguration(),
-    const WorkWeekConfiguration(),
     const MonthConfiguration(),
   ];
 
